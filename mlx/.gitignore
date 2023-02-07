@@ -1,0 +1,7 @@
+*.o
+*.a
+.DS_Store
+libmlx.dylib
+minilibx_opengl_20191021/
+minilibx-linux/
+mlx/
