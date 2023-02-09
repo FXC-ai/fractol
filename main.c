@@ -1,6 +1,6 @@
 #include "libft/libft.h"
 #include <stdio.h>
-#include <mlx.h>
+#include "mlx.h"
 
 typedef struct s_data
 {
@@ -24,10 +24,12 @@ typedef struct s_coord
 }   t_coord;
 
 
+
 int closed (t_vars vars);
 int display_wait(t_vars vars);
 int display_coord(int x, int y, t_vars vars);
-
+int test (int x, int y, void *param);
+int on_expose_test (void *param);
 
 
 int	create_trgb(int t, int r, int g, int b)
@@ -89,10 +91,14 @@ int main()
 	my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-
+    /*PRESS KEY*/
     mlx_key_hook(mlx_win, fx_kboard_hook, &vars);
+    /*DESTROY*/
     mlx_hook(vars.win, 17, 0, closed, &vars);
-
+    /*MOUSE MOVE*/
+    mlx_hook(vars.win, 6, 0, test, &vars);
+    /*ON EXPOSE*/
+    mlx_hook(vars.win, 12, 0, on_expose_test, &vars);
 
 
 	mlx_loop(mlx);
@@ -105,6 +111,25 @@ int closed (t_vars vars)
     (void)vars;
     exit(0);
     return(1);
+}
+
+int test (int x, int y, void *param)
+{
+    (void) x;
+    (void) y;
+    (void) param;
+
+    printf("la souris bouge : %d %d\n", x, y);
+    return (0);
+}
+
+int on_expose_test (void *param)
+{
+    (void) param;
+
+    printf("ON_EXPOSE active\n");
+
+    return (0);
 }
 
 
