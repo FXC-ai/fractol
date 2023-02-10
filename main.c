@@ -1,34 +1,55 @@
 #include "fractol.h"
+#include "libft/libft.h"
+#include "mlx.h"
+#define ON_DESTROY 17
+
+typedef struct s_vars
+{
+    void    *mlx;
+    void    *win;
+}   t_vars;
+
+typedef struct s_img
+{
+    void    *img;
+    void    *first_pix;
+
+    int     bits_per_pixel;
+    int     line_length;
+    int     endian;
+}   t_img;
+
+
+typedef struct s_datas
+{
+    t_vars  *vars;
+    t_img   *img;
+
+    int     color;
+    int     x;
+    int     y;
+
+}   t_datas;
+
+int close_window (t_datas *datas);
+int	create_trgb(int t, int r, int g, int b);
+int main_loop(t_datas *datas);
+int fx_kboard_hook(int key_code, t_datas *datas);
+int close_window (t_datas *datas);
+void initialise_datas(t_datas *datas, t_vars *vars, t_img *img);
 
 #define WIDTH 1920
 #define HEIGH 1080
 
-struct s_parameters {
-    int *x;
-    int *y;
-    int *zoom;
-    int *color;
 
-} t_parameters;
 
 int main()
 {
-    t_vars  vars;
-	t_img	img;
-    t_datas datas;
-
-    int     color = create_trgb(0,255,0,0);
-    int     x = 0;
-    int     y = 0;
-
-    //vars.mlx = mlx_init();
-    //vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGH, "Fractol");
-
+    t_vars          vars;
+	t_img	        img;
+    t_datas         datas;
 
     initialise_datas(&datas, &vars, &img);
-    datas.color = &color;
-    datas.x = &x;
-    datas.y = &y;
 
 
     /*DESTROY*/
@@ -37,6 +58,7 @@ int main()
     /*PRESS KEY*/
     mlx_key_hook(vars.win, fx_kboard_hook, &datas);
 
+    /*GENERATEUR IMAGE*/
     mlx_loop_hook(vars.mlx, &main_loop, &datas);
 
 	mlx_loop(vars.mlx);
@@ -52,6 +74,12 @@ void initialise_datas(t_datas *datas, t_vars *vars, t_img *img)
 
     datas->vars = vars;
     datas->img = img;
+
+    datas->color = create_trgb(0,255,0,0);
+
+    datas->x = 0;
+    datas->y = 0;
+
 
 }
 
@@ -85,19 +113,23 @@ int fx_kboard_hook(int key_code, t_datas *datas)
     }
     else if (key_code == 125)
     {
-        *(datas->y) += 50;
+        datas->color = create_trgb(0,0,255,255);
+        datas->y += 50;
     }
     else if (key_code == 126)
     {
-        *(datas->y) -= 50;
+        datas->color = create_trgb(0,255,0,0);
+        datas->y -= 50;
     }
     else if (key_code == 124)
     {
-        *(datas->x) += 50;
+        datas->color = create_trgb(0,0,0,255);
+        datas->x += 50;
     }
     else if (key_code == 123)
     {
-        *(datas->x) -= 50;
+        datas->color = create_trgb(0,0,255,0);
+        datas->x -= 50;
     }
     return (0);
 }
@@ -123,7 +155,7 @@ void    fx_display_square(int size_square, t_datas *datas)
         j = 0;
         while (j <= size_square)
         {
-            my_mlx_pixel_put(datas->img, *(datas->x)+i, *(datas->y)+j, *(datas->color));
+            my_mlx_pixel_put(datas->img, datas->x+i, datas->y+j, datas->color);
             j++;
         }
         
@@ -139,6 +171,8 @@ int main_loop(t_datas *datas)
                                         &datas->img->bits_per_pixel, 
                                         &datas->img->line_length,
                                         &datas->img->endian);
+    
+
 
     fx_display_square(50, datas);
 
