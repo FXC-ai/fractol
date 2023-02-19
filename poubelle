@@ -22,3 +22,14 @@ int on_expose_test (void *param)
 
     return (0);
 }
+
+
+
+
+        printf("[%f + (%fi)]^2 + [(%f) + (%fi)] = %f + (%fi)\n\n",
+                z_ini.re_part,
+                z_ini.im_part,
+                c.re_part,
+                c.im_part,
+                z_cur.re_part,
+                z_cur.im_part);
