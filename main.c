@@ -6,7 +6,7 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:44:01 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/19 18:00:27 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/19 18:12:44 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct s_datas
 typedef struct s_im_num
 {
 
-    double  re_part;
-    double  im_part;
+    double  re;
+    double  im;
 
 }   t_im_num;
 
@@ -77,12 +77,12 @@ int main()
 {
     //z^2 + c
     t_im_num z_ini;
-    z_ini.re_part = 0.05;
-    z_ini.im_part = 0.01;
+    z_ini.re = 0.05;
+    z_ini.im = 0.01;
 
     t_im_num c;
-    c.re_part = 0.3;
-    c.im_part = 0.5;
+    c.re = 0.3;
+    c.im = 0.5;
 
     int count = 0;
     int max_iterations = 127;
@@ -123,11 +123,11 @@ int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations)
     {
         z_cur = z2_plus_c(z_ini, c);
 
-        z_ini.re_part = z_cur.re_part;
-        z_ini.im_part = z_cur.im_part;
+        z_ini.re = z_cur.re;
+        z_ini.im = z_cur.im;
         count++;
 
-        if (z_cur.re_part * z_cur.re_part + z_cur.im_part * z_cur.im_part > 4)
+        if (z_cur.re * z_cur.re + z_cur.im * z_cur.im > 4)
         {
             break;
         }
@@ -143,17 +143,17 @@ t_im_num z2_plus_c(t_im_num z_ini, t_im_num c)
 
         t_im_num z_cur;
     
-        z_cur.re_part = (z_ini.re_part * z_ini.re_part) - (z_ini.im_part * z_ini.im_part) + c.re_part;
-        z_cur.im_part = (2 * z_ini.im_part * z_ini.im_part) + c.im_part;
-
+        z_cur.re = (z_ini.re * z_ini.re) - (z_ini.im * z_ini.im) + c.re;
+        z_cur.im = (2 * z_ini.im * z_ini.im) + c.im;
+        /*
         printf("[%f + (%fi)]^2 + [(%f) + (%fi)] = %f + (%fi)\n\n",
-                z_ini.re_part,
-                z_ini.im_part,
-                c.re_part,
-                c.im_part,
-                z_cur.re_part,
-                z_cur.im_part);
-
+                z_ini.re,
+                z_ini.im,
+                c.re,
+                c.im,
+                z_cur.re,
+                z_cur.im);
+        */
         return z_cur;
     
 }
@@ -294,35 +294,40 @@ void    fx_display_square(int size_square, t_datas *datas)
 void fx_display_pix_complex(t_datas *datas)
 {
 
-    double real;
-    double imaginary;
-
-    //t_im_num z_ini;
+    t_im_num z_ini;
+    t_im_num c;
 
     int x = 0;
     int y = 0;
-    //double real_int_part;
-    //double imaginary_int_part;
 
+    int nb_iter;
 
+    int color;
+
+    c.re = 0.3;
+    c.im = 0.5;
 
     //printf("ini_x = %d ini_y = %d zoom = %f\n", datas->ini_x, datas->ini_y, datas->zoom);
     while (x < WIDTH)
     {
         y = 0;
+        nb_iter = 0;
         while(y < HEIGH)
         {
-            real = ((((x - (WIDTH / 2)) / datas->zoom)) - datas->ini_x);
-            imaginary = ((((y - (HEIGH / 2)) / datas->zoom)) - datas->ini_y) * (-1);
+            z_ini.re = ((((x - (WIDTH / 2)) / datas->zoom)) - datas->ini_x);
+            z_ini.im = ((((y - (HEIGH / 2)) / datas->zoom)) - datas->ini_y) * (-1);
 
-            if (real == 0 || imaginary == 0)
+            if (z_ini.re == 0 || z_ini.im == 0)
             {
  
                 my_mlx_pixel_put(datas->img, x, y, datas->ini_color);
 
             }
 
+            nb_iter = calcute_iterations(z_ini, c, 127);
+            color = convert_to_color(nb_iter);
 
+            my_mlx_pixel_put(datas->img, x, y, color);
 
             /*
             modf(real, &real_int_part);
