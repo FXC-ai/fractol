@@ -1,6 +1,10 @@
 #include "fractol.h"
 #include "libft/libft.h"
 #include "mlx.h"
+#include <stdio.h>
+
+#define WIDTH 500
+#define HEIGH 500
 #define ON_DESTROY 17
 
 typedef struct s_vars
@@ -25,9 +29,10 @@ typedef struct s_datas
     t_vars  *vars;
     t_img   *img;
 
-    int     color;
-    int     x;
-    int     y;
+    int     ini_color;
+    int     ini_x;
+    int     ini_y;
+    double  zoom;
 
 }   t_datas;
 
@@ -37,10 +42,7 @@ int main_loop(t_datas *datas);
 int fx_kboard_hook(int key_code, t_datas *datas);
 int close_window (t_datas *datas);
 void initialise_datas(t_datas *datas, t_vars *vars, t_img *img);
-
-#define WIDTH 1920
-#define HEIGH 1080
-
+void fx_display_pix_complex(t_datas *datas, double zoom);
 
 
 int main()
@@ -50,7 +52,6 @@ int main()
     t_datas         datas;
 
     initialise_datas(&datas, &vars, &img);
-
 
     /*DESTROY*/
     mlx_hook(vars.win, ON_DESTROY, 0, close_window, &datas);
@@ -75,11 +76,11 @@ void initialise_datas(t_datas *datas, t_vars *vars, t_img *img)
     datas->vars = vars;
     datas->img = img;
 
-    datas->color = create_trgb(0,255,0,0);
+    datas->ini_color = create_trgb(0,255,0,0);
 
-    datas->x = 0;
-    datas->y = 0;
-
+    datas->ini_x = 0;
+    datas->ini_y = 0;
+    datas->zoom = 1;
 
 }
 
@@ -113,23 +114,23 @@ int fx_kboard_hook(int key_code, t_datas *datas)
     }
     else if (key_code == 125)
     {
-        datas->color = create_trgb(0,0,255,255);
-        datas->y += 50;
+        datas->ini_color = create_trgb(0,0,255,255);
+        datas->ini_y += 10;
     }
     else if (key_code == 126)
     {
-        datas->color = create_trgb(0,255,0,0);
-        datas->y -= 50;
+        datas->ini_color = create_trgb(0,255,0,0);
+        datas->ini_y -= 10;
     }
     else if (key_code == 124)
     {
-        datas->color = create_trgb(0,0,0,255);
-        datas->x += 50;
+        datas->ini_color = create_trgb(0,0,0,255);
+        datas->ini_x += 10;
     }
     else if (key_code == 123)
     {
-        datas->color = create_trgb(0,0,255,0);
-        datas->x -= 50;
+        datas->ini_color = create_trgb(0,0,255,0);
+        datas->ini_x -= 10;
     }
     return (0);
 }
@@ -155,13 +156,46 @@ void    fx_display_square(int size_square, t_datas *datas)
         j = 0;
         while (j <= size_square)
         {
-            my_mlx_pixel_put(datas->img, datas->x+i, datas->y+j, datas->color);
+            my_mlx_pixel_put(datas->img, datas->ini_x+i, datas->ini_y+j, datas->ini_color);
             j++;
         }
         
         i++;
     }
     
+}
+
+void fx_display_pix_complex(t_datas *datas, double zoom)
+{
+
+    double real;
+    double imaginary;
+    int x = 0;
+    int y = 0;
+
+
+    //printf("ini_x = %d ini_y = %d zoom = %f\n", datas->ini_x, datas->ini_y, datas->zoom);
+    while (x < WIDTH)
+    {
+        y = 0;
+        while(y < HEIGH)
+        {
+            real = (((x - (WIDTH / 2)) / zoom)) - datas->ini_x;
+            imaginary = (((y - (HEIGH / 2)) / zoom)) - datas->ini_y;
+            if (real == 0 || imaginary == 0)
+            {
+ 
+                my_mlx_pixel_put(datas->img, x, y, datas->ini_color);
+
+            }
+            //printf("result = %f + (%fi)\n", real, imaginary);
+            y++;
+        }
+        x++;
+    }
+    
+
+
 }
 
 int main_loop(t_datas *datas)
@@ -174,7 +208,8 @@ int main_loop(t_datas *datas)
     
 
 
-    fx_display_square(50, datas);
+    //fx_display_square(50, datas);
+    fx_display_pix_complex(datas, 1);
 
 	mlx_put_image_to_window((datas->vars)->mlx, (datas->vars)->win, (datas->img)->img, 0, 0);
     return (0);
