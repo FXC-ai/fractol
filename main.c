@@ -6,7 +6,7 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:44:01 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/21 22:32:17 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/21 23:34:45 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,16 @@ int fx_mouse_hook(int key_code, int x, int y, t_datas *datas)
 {
     (void) x;
     (void) y;
-    if (key_code == 1)
+    if (key_code == 4)
     {
-        printf("zoom = %f\n", datas->zoom);
-    
+        datas->zoom *= 1.2;    
     }
+    else if (key_code == 5)
+    {
+        datas->zoom /= 1.2;
+
+    }
+    
     
     
     //printf("Action mouse = %d", key_code);
@@ -118,10 +123,29 @@ int convert_to_color(int nb_iterations, int max_iterations)
         return create_trgb(0,0,0,0); //NOIR
     }
 
+    if (nb_iterations % 3 == 0)
+    {
+        r = 0.1*coef*255;
+        g = 0.7*(1-coef)*255;
+        b = 0.6*coef*255;
+    }
+    else if (nb_iterations % 3 == 1)
+    {
+
+        r = 0.2*coef*255;
+        g = 0.6*(1- coef)*255;
+        b = 0.7*coef*255;
+
+    }
+    else
+    {
+        r = 0.3*coef*255;
+        g = 0.5*(1-coef)*255;
+        b = 0.8*coef*255;
+
+    }
     
-    r = 0.1*coef*255;
-    g = (1-coef)*255;
-    b = 0.8*coef*255;
+    
 
     if (r + g + b > 650)
     {
@@ -253,8 +277,8 @@ void fx_display_pix_complex(t_datas *datas)
     int nb_iter;
 
 
-    c.re = 0.3;
-    c.im = 0.5;
+    c.re = 0.1;
+    c.im = 0.65;
 
     while (x < WIDTH)
     {
