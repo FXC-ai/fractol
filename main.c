@@ -6,59 +6,11 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:44:01 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/21 16:49:38 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:32:17 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "fractol.h"
-#include "libft/libft.h"
-#include "mlx.h"
-#include <stdio.h>
-#include <math.h>
-
-#define WIDTH 500
-#define HEIGH 500
-#define ON_DESTROY 17
-#define ON_MOUSEDOWN 4
-
-typedef struct s_vars
-{
-    void    *mlx;
-    void    *win;
-}   t_vars;
-
-typedef struct s_img
-{
-    void    *img;
-    void    *first_pix;
-
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
-}   t_img;
-
-
-typedef struct s_datas
-{
-    t_vars  *vars;
-    t_img   *img;
-
-    int     ini_color;
-    double     ini_x;
-    double     ini_y;
-    double  zoom;
-
-}   t_datas;
-
-typedef struct s_im_num
-{
-
-    double  re;
-    double  im;
-
-}   t_im_num;
 
 int close_window (t_datas *datas);
 int	create_trgb(int t, int r, int g, int b);
@@ -67,30 +19,15 @@ int fx_kboard_hook(int key_code, t_datas *datas);
 int close_window (t_datas *datas);
 void initialise_datas(t_datas *datas, t_vars *vars, t_img *img);
 void fx_display_pix_complex(t_datas *datas);
-int fx_mouse_hook(t_datas *datas);
+int fx_mouse_hook(int key_code, int x, int y, t_datas *datas);
 t_im_num z2_plus_c(t_im_num z_ini, t_im_num c);
 int	create_trgb(int t, int r, int g, int b);
-int convert_to_color(int nb_iterations);
+int convert_to_color(int nb_iterations, int max_iterations);
 int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations);
 
 int main()
 {
-    //z^2 + c
-    t_im_num z_ini;
-    z_ini.re = 0.05;
-    z_ini.im = 0.01;
 
-    t_im_num c;
-    c.re = 0;
-    c.im = 0;
-
-
-
-
-
-    //count = calcute_iterations(z_ini, c, max_iterations);
-
-    //printf("color code = %d", convert_to_color(count));
 
     t_vars          vars;
 	t_img	        img;
@@ -106,12 +43,29 @@ int main()
     /*PRESS KEY*/
     mlx_key_hook(vars.win, fx_kboard_hook, &datas);
 
+    
+    mlx_mouse_hook(vars.win, fx_mouse_hook, &datas);
     /*GENERATEUR IMAGE*/
     mlx_loop_hook(vars.mlx, &main_loop, &datas);
 
 	mlx_loop(vars.mlx);
 
     return (0);
+}
+
+int fx_mouse_hook(int key_code, int x, int y, t_datas *datas)
+{
+    (void) x;
+    (void) y;
+    if (key_code == 1)
+    {
+        printf("zoom = %f\n", datas->zoom);
+    
+    }
+    
+    
+    //printf("Action mouse = %d", key_code);
+    return 0;
 }
 
 int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations)
@@ -123,18 +77,14 @@ int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations)
     while (count < max_iterations)
     {
         z_cur = z2_plus_c(z_ini, c);
-
         z_ini.re = z_cur.re;
         z_ini.im = z_cur.im;
         count++;
-        
         
         if (z_cur.re * z_cur.re + z_cur.im * z_cur.im > 4)
         {
             break;
         }
-        
-
     }
     return count;
 
@@ -143,36 +93,44 @@ int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations)
 
 t_im_num z2_plus_c(t_im_num z_ini, t_im_num c)
 {
-
         t_im_num z_cur;
     
         z_cur.re = (z_ini.re * z_ini.re) - (z_ini.im * z_ini.im) + c.re;
         z_cur.im = (2 * z_ini.im * z_ini.re) + c.im;
-        /*
-        printf("[%f + (%fi)]^2 + [(%f) + (%fi)] = %f + (%fi)\n\n",
-                z_ini.re,
-                z_ini.im,
-                c.re,
-                c.im,
-                z_cur.re,
-                z_cur.im);
-        */
+
         return z_cur;
-    
 }
 
-int convert_to_color(int nb_iterations)
+int convert_to_color(int nb_iterations, int max_iterations)
 {
 
-    if (nb_iterations == 127)
+    double  coef;
+    int r;
+    int g;
+    int b;
+    int t;
+
+    t = 0;
+    coef = log((double)nb_iterations) / log((double)max_iterations);
+
+    if (nb_iterations == max_iterations)
     {
         return create_trgb(0,0,0,0); //NOIR
     }
 
-    return (create_trgb(0,255,0,255));
     
-    //return create_trgb(0,nb_iterations*2,nb_iterations*2,nb_iterations*2);
+    r = 0.1*coef*255;
+    g = (1-coef)*255;
+    b = 0.8*coef*255;
 
+    if (r + g + b > 650)
+    {
+        t = 127;
+    }
+    
+
+    return create_trgb (t, r,g,b);
+    
 }
 
 void initialise_datas(t_datas *datas, t_vars *vars, t_img *img)
@@ -205,14 +163,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int fx_mouse_hook(t_datas *datas)
-{
 
-    printf("mouse up\n");
-    printf("zoom = %f\n", datas->ini_x);
-
-    return 0;
-}
 
 int fx_kboard_hook(int key_code, t_datas *datas)
 {
@@ -229,13 +180,13 @@ int fx_kboard_hook(int key_code, t_datas *datas)
     }
     else if (key_code == 69)
     {
-        datas->zoom += 1;
+        datas->zoom *= 1.2;
         printf("zoom = %f\n", datas->zoom);
 
     }
     else if (key_code == 78)
     {
-        datas->zoom -= 1;
+        datas->zoom /= 1.2;
         printf("zoom = %f\n", datas->zoom);
     }
     else if (key_code == 12)
@@ -251,22 +202,22 @@ int fx_kboard_hook(int key_code, t_datas *datas)
     else if (key_code == 125)
     {
         datas->ini_color = create_trgb(0,0,255,0);
-        datas->ini_y += 0.1;
+        datas->ini_y += 25;
     }
     else if (key_code == 126)
     {
         datas->ini_color = create_trgb(65,0,255,0);
-        datas->ini_y -= 0.1;
+        datas->ini_y -= 25;
     }
     else if (key_code == 124)
     {
         datas->ini_color = create_trgb(127,0,255,0);
-        datas->ini_x += 0.1;
+        datas->ini_x += 25;
     }
     else if (key_code == 123)
     {
         datas->ini_color = create_trgb(200,0,255,0);
-        datas->ini_x -= 0.1;
+        datas->ini_x -= 25;
     }
     return (0);
 }
@@ -280,31 +231,20 @@ int close_window (t_datas *datas)
     return(0);
 }
 
-
-void    fx_display_square(int size_square, t_datas *datas)
+t_im_num convert_xy_to_z(t_datas *datas, int x, int y)
 {
-    int i;
-    int j;
-    
-    i = 0;
-    while (i <= size_square)
-    {
-        j = 0;
-        while (j <= size_square)
-        {
-            my_mlx_pixel_put(datas->img, datas->ini_x+i, datas->ini_y+j, datas->ini_color);
-            j++;
-        }
-        
-        i++;
-    }
-    
+    t_im_num z;
+
+    z.re = ((((x - (WIDTH / 2)) / datas->zoom)) - (((datas->ini_x) / datas->zoom)));
+    z.im = ((((y - (HEIGH / 2)) / datas->zoom)) - (((datas->ini_y) / datas->zoom))) * (-1);
+
+    return (z);
 }
 
 void fx_display_pix_complex(t_datas *datas)
 {
 
-    t_im_num z_ini;
+    t_im_num z;
     t_im_num c;
 
     int x = 0;
@@ -312,14 +252,10 @@ void fx_display_pix_complex(t_datas *datas)
 
     int nb_iter;
 
-    //int color;
 
     c.re = 0.3;
     c.im = 0.5;
 
-
-
-    //printf("ini_x = %d ini_y = %d zoom = %f\n", datas->ini_x, datas->ini_y, datas->zoom);
     while (x < WIDTH)
     {
         y = 0;
@@ -328,44 +264,17 @@ void fx_display_pix_complex(t_datas *datas)
         {
             //ATTENTION IL FAUDRA ADAPTER LE DEPLACEMENT AU ZOOM !!!
 
-            z_ini.re = ((((x - (WIDTH / 2)) / datas->zoom)) - datas->ini_x);
-            z_ini.im = ((((y - (HEIGH / 2)) / datas->zoom)) - datas->ini_y) * (-1);
+            //z_ini.re = ((((x - (WIDTH / 2)) / datas->zoom)) - datas->ini_x);
+            //z_ini.im = ((((y - (HEIGH / 2)) / datas->zoom)) - datas->ini_y) * (-1);
+            z = convert_xy_to_z(datas, x, y);
 
-            if ((z_ini.re >= -0.1 && z_ini.re <= 0.1)||( z_ini.im == 0))
-            {
-                my_mlx_pixel_put(datas->img, x, y, datas->ini_color);
-                
-            }
-            
-            //nb_iter = calcute_iterations(z_ini, c, 127);
-            //printf("nb_inter = %d\n", nb_iter);
-            datas->ini_color = convert_to_color(calcute_iterations(z_ini, c, 127));
+            datas->ini_color = convert_to_color(calcute_iterations(z, c, 256), 256);
             my_mlx_pixel_put(datas->img, x, y, datas->ini_color);
 
-            /*
-            color = convert_to_color(nb_iter);
-
-            my_mlx_pixel_put(datas->img, x, y, color);
-            */
-            /*
-            modf(real, &real_int_part);
-            modf(imaginary, &imaginary_int_part);
-
-            if ((((int) real_int_part % 10) == 0) && (((int) imaginary_int_part % 10) == 0))
-            {
-                my_mlx_pixel_put(datas->img, x, y, create_trgb(0,255,255,255));
-            }
-            */
-            //printf("result = %f + (%fi)\n", real, imaginary);
             y++;
-
         }
         x++;
-
     }
-    
-
-
 }
 
 int main_loop(t_datas *datas)
@@ -376,9 +285,6 @@ int main_loop(t_datas *datas)
                                         &datas->img->line_length,
                                         &datas->img->endian);
     
-
-
-    //fx_display_square(50, datas);
     fx_display_pix_complex(datas);
 
 	mlx_put_image_to_window((datas->vars)->mlx, (datas->vars)->win, (datas->img)->img, 0, 0);
