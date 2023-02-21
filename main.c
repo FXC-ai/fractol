@@ -6,7 +6,7 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:44:01 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/19 18:12:44 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:49:38 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct s_datas
     t_img   *img;
 
     int     ini_color;
-    int     ini_x;
-    int     ini_y;
+    double     ini_x;
+    double     ini_y;
     double  zoom;
 
 }   t_datas;
@@ -81,15 +81,16 @@ int main()
     z_ini.im = 0.01;
 
     t_im_num c;
-    c.re = 0.3;
-    c.im = 0.5;
+    c.re = 0;
+    c.im = 0;
 
-    int count = 0;
-    int max_iterations = 127;
 
-    count = calcute_iterations(z_ini, c, max_iterations);
 
-    printf("color code = %d", convert_to_color(count));
+
+
+    //count = calcute_iterations(z_ini, c, max_iterations);
+
+    //printf("color code = %d", convert_to_color(count));
 
     t_vars          vars;
 	t_img	        img;
@@ -126,11 +127,13 @@ int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations)
         z_ini.re = z_cur.re;
         z_ini.im = z_cur.im;
         count++;
-
+        
+        
         if (z_cur.re * z_cur.re + z_cur.im * z_cur.im > 4)
         {
             break;
         }
+        
 
     }
     return count;
@@ -144,7 +147,7 @@ t_im_num z2_plus_c(t_im_num z_ini, t_im_num c)
         t_im_num z_cur;
     
         z_cur.re = (z_ini.re * z_ini.re) - (z_ini.im * z_ini.im) + c.re;
-        z_cur.im = (2 * z_ini.im * z_ini.im) + c.im;
+        z_cur.im = (2 * z_ini.im * z_ini.re) + c.im;
         /*
         printf("[%f + (%fi)]^2 + [(%f) + (%fi)] = %f + (%fi)\n\n",
                 z_ini.re,
@@ -161,7 +164,14 @@ t_im_num z2_plus_c(t_im_num z_ini, t_im_num c)
 int convert_to_color(int nb_iterations)
 {
 
-    return create_trgb(0,nb_iterations*2,nb_iterations*2,nb_iterations*2);
+    if (nb_iterations == 127)
+    {
+        return create_trgb(0,0,0,0); //NOIR
+    }
+
+    return (create_trgb(0,255,0,255));
+    
+    //return create_trgb(0,nb_iterations*2,nb_iterations*2,nb_iterations*2);
 
 }
 
@@ -178,7 +188,7 @@ void initialise_datas(t_datas *datas, t_vars *vars, t_img *img)
 
     datas->ini_x = 0;
     datas->ini_y = 0;
-    datas->zoom = 1;
+    datas->zoom = 120;
 
 }
 
@@ -199,7 +209,7 @@ int fx_mouse_hook(t_datas *datas)
 {
 
     printf("mouse up\n");
-    printf("zoom = %d\n", datas->ini_x);
+    printf("zoom = %f\n", datas->ini_x);
 
     return 0;
 }
@@ -219,13 +229,13 @@ int fx_kboard_hook(int key_code, t_datas *datas)
     }
     else if (key_code == 69)
     {
-        datas->zoom += 0.1;
+        datas->zoom += 1;
         printf("zoom = %f\n", datas->zoom);
 
     }
     else if (key_code == 78)
     {
-        datas->zoom -= 0.1;
+        datas->zoom -= 1;
         printf("zoom = %f\n", datas->zoom);
     }
     else if (key_code == 12)
@@ -241,22 +251,22 @@ int fx_kboard_hook(int key_code, t_datas *datas)
     else if (key_code == 125)
     {
         datas->ini_color = create_trgb(0,0,255,0);
-        datas->ini_y += 10;
+        datas->ini_y += 0.1;
     }
     else if (key_code == 126)
     {
         datas->ini_color = create_trgb(65,0,255,0);
-        datas->ini_y -= 10;
+        datas->ini_y -= 0.1;
     }
     else if (key_code == 124)
     {
         datas->ini_color = create_trgb(127,0,255,0);
-        datas->ini_x += 10;
+        datas->ini_x += 0.1;
     }
     else if (key_code == 123)
     {
         datas->ini_color = create_trgb(200,0,255,0);
-        datas->ini_x -= 10;
+        datas->ini_x -= 0.1;
     }
     return (0);
 }
@@ -302,10 +312,12 @@ void fx_display_pix_complex(t_datas *datas)
 
     int nb_iter;
 
-    int color;
+    //int color;
 
     c.re = 0.3;
     c.im = 0.5;
+
+
 
     //printf("ini_x = %d ini_y = %d zoom = %f\n", datas->ini_x, datas->ini_y, datas->zoom);
     while (x < WIDTH)
@@ -314,21 +326,27 @@ void fx_display_pix_complex(t_datas *datas)
         nb_iter = 0;
         while(y < HEIGH)
         {
+            //ATTENTION IL FAUDRA ADAPTER LE DEPLACEMENT AU ZOOM !!!
+
             z_ini.re = ((((x - (WIDTH / 2)) / datas->zoom)) - datas->ini_x);
             z_ini.im = ((((y - (HEIGH / 2)) / datas->zoom)) - datas->ini_y) * (-1);
 
-            if (z_ini.re == 0 || z_ini.im == 0)
+            if ((z_ini.re >= -0.1 && z_ini.re <= 0.1)||( z_ini.im == 0))
             {
- 
                 my_mlx_pixel_put(datas->img, x, y, datas->ini_color);
-
+                
             }
+            
+            //nb_iter = calcute_iterations(z_ini, c, 127);
+            //printf("nb_inter = %d\n", nb_iter);
+            datas->ini_color = convert_to_color(calcute_iterations(z_ini, c, 127));
+            my_mlx_pixel_put(datas->img, x, y, datas->ini_color);
 
-            nb_iter = calcute_iterations(z_ini, c, 127);
+            /*
             color = convert_to_color(nb_iter);
 
             my_mlx_pixel_put(datas->img, x, y, color);
-
+            */
             /*
             modf(real, &real_int_part);
             modf(imaginary, &imaginary_int_part);
@@ -343,6 +361,7 @@ void fx_display_pix_complex(t_datas *datas)
 
         }
         x++;
+
     }
     
 
