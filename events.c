@@ -6,7 +6,7 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:04:01 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/22 17:16:47 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:11:13 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int fx_kboard_hook(int key_code, t_datas *datas)
     else if (key_code == 12)
     {
         mlx_mouse_get_pos(datas->vars->win , &x, &y);
+        
+        datas->c.re = ((((x - (WIDTH / 2)) / datas->zoom)) - (((datas->ini_x) / datas->zoom)));
+        datas->c.im = ((((y - (HEIGH / 2)) / datas->zoom)) - (((datas->ini_y) / datas->zoom))) * (-1);
+
     }
     else if (key_code == 125)
     {

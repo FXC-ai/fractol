@@ -47,6 +47,8 @@ typedef struct s_datas
     double     ini_y;
     double  zoom;
 
+    char *fractal;
+
     t_im_num c;   
 
 
@@ -58,7 +60,7 @@ int	create_trgb(int t, int r, int g, int b);
 int main_loop(t_datas *datas);
 int fx_kboard_hook(int key_code, t_datas *datas);
 int close_window (t_datas *datas);
-void initialise_datas(t_datas *datas, t_vars *vars, t_img *img);
+void initialise_datas(t_datas *datas, t_vars *vars, t_img *img, char *fractal);
 void fx_display_pix_complex(t_datas *datas);
 int fx_mouse_hook(int key_code, int x, int y, t_datas *datas);
 t_im_num z2_plus_c(t_im_num z_ini, t_im_num c);
