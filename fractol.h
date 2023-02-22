@@ -27,6 +27,13 @@ typedef struct s_img
     int     endian;
 }   t_img;
 
+typedef struct s_im_num
+{
+
+    double  re;
+    double  im;
+
+}   t_im_num;
 
 typedef struct s_datas
 {
@@ -38,14 +45,10 @@ typedef struct s_datas
     double     ini_y;
     double  zoom;
 
+    t_im_num c;   
+
+
 }   t_datas;
 
-typedef struct s_im_num
-{
-
-    double  re;
-    double  im;
-
-}   t_im_num;
 
 #endif
