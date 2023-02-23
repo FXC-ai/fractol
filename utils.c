@@ -6,7 +6,7 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:19:25 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/22 18:32:43 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:46:23 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int convert_to_color(int nb_iterations, int max_iterations)
     return create_trgb (0, r,g,b);
 }
 
-void initialise_datas(t_datas *datas, t_vars *vars, t_img *img, char *fractal)
+void initialise_datas(t_datas *datas, t_vars *vars, t_img *img, int fractal)
 {
     vars->mlx = mlx_init();
     vars->win = mlx_new_window(vars->mlx, WIDTH, HEIGH, "Fractol");
@@ -57,8 +57,13 @@ void initialise_datas(t_datas *datas, t_vars *vars, t_img *img, char *fractal)
     datas->ini_x = 0;
     datas->ini_y = 0;
     datas->zoom = 120;
+    datas->step_zoom = 1;
+
+    datas->center_x = 0;
+    datas->center_y = 0;
 
     datas->fractal = fractal;
+
     datas->c.im = 0.75;
     datas->c.re = -0.12;
 }

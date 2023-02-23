@@ -46,8 +46,11 @@ typedef struct s_datas
     double     ini_x;
     double     ini_y;
     double  zoom;
+    int step_zoom;
+    double  center_x;
+    double  center_y;
 
-    char *fractal;
+    int fractal;
 
     t_im_num c;   
 
@@ -60,7 +63,7 @@ int	create_trgb(int t, int r, int g, int b);
 int main_loop(t_datas *datas);
 int fx_kboard_hook(int key_code, t_datas *datas);
 int close_window (t_datas *datas);
-void initialise_datas(t_datas *datas, t_vars *vars, t_img *img, char *fractal);
+void initialise_datas(t_datas *datas, t_vars *vars, t_img *img, int fractal);
 void fx_display_pix_complex(t_datas *datas);
 int fx_mouse_hook(int key_code, int x, int y, t_datas *datas);
 t_im_num z2_plus_c(t_im_num z_ini, t_im_num c);
@@ -68,6 +71,6 @@ int	create_trgb(int t, int r, int g, int b);
 int convert_to_color(int nb_iterations, int max_iterations);
 int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations, t_im_num (fractal)(t_im_num, t_im_num));
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-
+t_im_num convert_xy_to_z(t_datas *datas, int x, int y);
 
 #endif

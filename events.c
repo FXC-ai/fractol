@@ -6,11 +6,23 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:04:01 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/22 18:11:13 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:45:33 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void display_datas (t_datas *datas)
+{
+
+    printf("fractal = %d\n", datas->fractal);
+    printf("ini_x = %f\n", datas->ini_x);
+    printf("ini_y = %f\n", datas->ini_y);
+    printf("step_zoom = %d\n", datas->step_zoom);
+
+
+
+}
 
 int fx_mouse_hook(int key_code, int x, int y, t_datas *datas)
 {
@@ -18,12 +30,22 @@ int fx_mouse_hook(int key_code, int x, int y, t_datas *datas)
     (void) y;
     if (key_code == 4)
     {
-        datas->zoom *= 1.2;    
+        datas->zoom *= 1.5;
+        //datas->ini_x -= (((datas->ini_x - (WIDTH / 2)) / datas->zoom)) - (((datas->ini_x) / datas->zoom));
+        datas->step_zoom += 1;
+        
     }
     else if (key_code == 5)
     {
-        datas->zoom /= 1.2;
-    }    
+        datas->zoom /= 1.5;
+        //datas->ini_x += (((datas->ini_x - (WIDTH / 2)) / datas->zoom)) - (((datas->ini_x) / datas->zoom));
+        datas->step_zoom -= 1;
+    }
+    else if (key_code == 1)
+    {
+        ft_printf("x = %d | y = %d\n", x,x);
+
+    }
     return 0;
 }
 
@@ -31,7 +53,8 @@ int fx_kboard_hook(int key_code, t_datas *datas)
 {
     int x;
     int y;
-
+    t_im_num c;
+    printf("ini : %d\n",key_code);
     if (key_code == 53)
     {
         mlx_destroy_window(datas->vars->mlx, datas->vars->win);
@@ -39,29 +62,35 @@ int fx_kboard_hook(int key_code, t_datas *datas)
     }
     else if (key_code == 69)
     {
-        datas->zoom *= 1.2;
+        datas->zoom *= 1.5;
+
     }
     else if (key_code == 78)
     {
-        datas->zoom /= 1.2;
+        datas->zoom /= 1.5;
     }
     else if (key_code == 12)
     {
         mlx_mouse_get_pos(datas->vars->win , &x, &y);
-        
-        datas->c.re = ((((x - (WIDTH / 2)) / datas->zoom)) - (((datas->ini_x) / datas->zoom)));
-        datas->c.im = ((((y - (HEIGH / 2)) / datas->zoom)) - (((datas->ini_y) / datas->zoom))) * (-1);
+        if (datas->fractal == 1)
+        {
+            c = convert_xy_to_z(datas, x, y);
+            datas->c.re = c.re;
+            datas->c.im = c.im;
+        }
+        display_datas(datas);
 
     }
     else if (key_code == 125)
     {
         datas->ini_color = create_trgb(0,0,255,0);
-        datas->ini_y += 25;
+        datas->ini_y -= 25;
+        datas->center_x += 25;
     }
     else if (key_code == 126)
     {
         datas->ini_color = create_trgb(65,0,255,0);
-        datas->ini_y -= 25;
+        datas->ini_y += 25;
     }
     else if (key_code == 124)
     {
