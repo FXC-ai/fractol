@@ -45,13 +45,10 @@ typedef struct s_datas
     int     ini_color;
     double     ini_x;
     double     ini_y;
-    int     step_x;
-    int     step_y;
+
 
     double  zoom;
-    int step_zoom;
-    double  center_x;
-    double  center_y;
+
 
     int fractal;
 
@@ -61,7 +58,7 @@ typedef struct s_datas
 }   t_datas;
 
 int mandelbrot(t_im_num c, int max_iterations);
-int close_window (t_datas *datas);
+
 int	create_trgb(int t, int r, int g, int b);
 int main_loop(t_datas *datas);
 int fx_kboard_hook(int key_code, t_datas *datas);
@@ -75,5 +72,6 @@ int convert_to_color(int nb_iterations, int max_iterations);
 int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations, t_im_num (fractal)(t_im_num, t_im_num));
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_im_num convert_xy_to_z(t_datas *datas, int x, int y);
+int z2plusc2(t_im_num c, int max_iterations);
 
 #endif
