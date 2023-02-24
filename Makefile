@@ -1,4 +1,4 @@
-SRCS 	= main.c mandelbrot.c julia.c events.c utils.c z2plusc2.c complex_plan_manager.c
+SRCS 	= main.c mandelbrot.c julia.c events.c utils.c z2plusc2.c complex_plan_manager.c color_manager.c
 
 OBJS	= ${SRCS:.c=.o}
 
