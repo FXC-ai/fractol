@@ -6,13 +6,13 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:48:55 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/22 15:49:15 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:20:40 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations, t_im_num (fractal)(t_im_num, t_im_num))
+int julia (t_im_num z_ini, t_im_num c, int max_iterations)
 {
     int count;
     t_im_num z_cur;
@@ -20,7 +20,7 @@ int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations, t_im_num
     count = 0;
     while (count < max_iterations)
     {
-        z_cur = fractal(z_ini, c);
+        z_cur = z2_plus_c(z_ini, c);
         z_ini.re = z_cur.re;
         z_ini.im = z_cur.im;
         count++;

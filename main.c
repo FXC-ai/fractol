@@ -6,12 +6,11 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:44:01 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/24 15:07:37 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:07:33 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
 
 int main(int argc, char *argv[])
 {
@@ -21,10 +20,7 @@ int main(int argc, char *argv[])
 
     if (argc != 2)
     {
-        ft_printf ("Choose a fractal :\n");
-        ft_printf ("    - Julia\n");
-        ft_printf ("    - Mandelbrot\n");
-        ft_printf ("    - z2plusc2\n");
+        print_arguments();
         return (0);
     }
     else
@@ -44,10 +40,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            ft_printf ("Choose a fractal :\n");
-            ft_printf ("    - Julia\n");
-            ft_printf ("    - Mandelbrot\n");
-            ft_printf ("    - z2plusc2\n");            
+            print_arguments();
             return (0);
         }
     }
@@ -61,51 +54,4 @@ int main(int argc, char *argv[])
     return (0);
 }
 
-t_im_num convert_xy_to_z(t_datas *datas, int x, int y)
-{
-    t_im_num z;
-    z.re = (((x + datas->ini_x) - (WIDTH / 2)) / datas->zoom);
-    z.im = ((((y - (HEIGH / 2)) / datas->zoom)) - (((datas->ini_y / datas->zoom)))) * (-1);
-    return (z);
-}
 
-void fx_display_pix_complex(t_datas *datas)
-{
-
-    t_im_num param;
-
-    int x = 0;
-    int y = 0;
-    int nb_iter;
-
-    while (x < WIDTH)
-    {
-        y = 0;
-        nb_iter = 0;
-        while(y < HEIGH)
-        {
-
-            param = convert_xy_to_z(datas, x, y);
-
-            if (datas->fractal == 1)
-            {
-                datas->ini_color = convert_to_color(calcute_iterations(param, datas->c, 200, z2_plus_c), 200);
-            }
-            else if (datas->fractal == 2)
-            {
-                datas->ini_color = convert_to_color(mandelbrot(param,200), 200);
-            }
-            else if (datas->fractal == 3)
-            {
-                datas->ini_color = convert_to_color(z2plusc2(param,200), 200);
-
-            }
-
-            my_mlx_pixel_put(datas->img, x, y, datas->ini_color);
-            my_mlx_pixel_put(datas->img, 250, 250, create_trgb(0,255,0,0));
-
-            y++;
-        }
-        x++;
-    }
-}

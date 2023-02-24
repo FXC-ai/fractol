@@ -3,7 +3,6 @@
 
 #include "libft/libft.h"
 #include "mlx/mlx.h"
-#include <stdio.h>
 #include <math.h>
 
 #define WIDTH 500
@@ -48,6 +47,7 @@ typedef struct s_datas
 
 
     double  zoom;
+    int     step_zoom;
 
 
     int fractal;
@@ -58,6 +58,7 @@ typedef struct s_datas
 }   t_datas;
 
 int mandelbrot(t_im_num c, int max_iterations);
+void print_arguments ();
 
 int	create_trgb(int t, int r, int g, int b);
 int main_loop(t_datas *datas);
@@ -69,9 +70,11 @@ int fx_mouse_hook(int key_code, int x, int y, t_datas *datas);
 t_im_num z2_plus_c(t_im_num z_ini, t_im_num c);
 int	create_trgb(int t, int r, int g, int b);
 int convert_to_color(int nb_iterations, int max_iterations);
-int calcute_iterations (t_im_num z_ini, t_im_num c, int max_iterations, t_im_num (fractal)(t_im_num, t_im_num));
+int julia (t_im_num z_ini, t_im_num c, int max_iterations);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_im_num convert_xy_to_z(t_datas *datas, int x, int y);
 int z2plusc2(t_im_num c, int max_iterations);
+t_im_num convert_xy_to_z(t_datas *datas, int x, int y);
+void fx_display_pix_complex(t_datas *datas);
 
 #endif

@@ -6,37 +6,33 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:04:01 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/24 15:07:26 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:59:37 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void display_datas (t_datas *datas)
-{
-    printf("fractal = %d\n", datas->fractal);
-    printf("ini_x = %f\n", datas->ini_x);
-    printf("ini_y = %f\n", datas->ini_y);
-
-}
-
 int fx_mouse_hook(int key_code, int x, int y, t_datas *datas)
 {
+    (void) x;
+    (void) y;
     if (key_code == 4)
     {
         datas->zoom *= 1.5;
+        datas->step_zoom += 1;
         datas->ini_x = 1.5 * datas->ini_x;
         datas->ini_y = 1.5 * datas->ini_y;
     }
     else if (key_code == 5)
     {
         datas->zoom /= 1.5;
+        datas->step_zoom -= 1;
         datas->ini_x = datas->ini_x / 1.5;
         datas->ini_y = datas->ini_y / 1.5;
     }
     else if (key_code == 1)
     {
-        ft_printf("x = %d | y = %d\n", x,y);
+        ft_printf("zoom = %d\n", datas->step_zoom);
     }
     return 0;
 }
@@ -61,8 +57,6 @@ int fx_kboard_hook(int key_code, t_datas *datas)
             datas->c.re = c.re;
             datas->c.im = c.im;
         }
-        display_datas(datas);
-
     }
     else if (key_code == 125)
     {
