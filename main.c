@@ -6,7 +6,7 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:44:01 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/23 18:34:26 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:29:42 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ int main(int argc, char *argv[])
 t_im_num convert_xy_to_z(t_datas *datas, int x, int y)
 {
     t_im_num z;
+    /*
+    (double) ajust;
 
-
-    z.re = (((x - (WIDTH / 2)) / datas->zoom)) + ((((datas->ini_x * datas->step_zoom) / datas->zoom)) /*- ((datas->step_zoom * 25) / datas->zoom)*/);
+    ajust = 
+    */
+    //z.re = (((x - (WIDTH / 2)) / datas->zoom)) + ((((datas->ini_x * datas->step_zoom) / datas->zoom)) /*- ((datas->step_zoom * 25) / datas->zoom)*/);
     
-    //z.re = (((((x - datas->ini_x)- (WIDTH / 2)) / datas->zoom)));
+    z.re = (((x + datas->ini_x) - (WIDTH / 2)) / datas->zoom);
 
 
 

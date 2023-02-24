@@ -6,7 +6,7 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:19:25 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/23 18:46:23 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:39:43 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ void initialise_datas(t_datas *datas, t_vars *vars, t_img *img, int fractal)
     datas->ini_x = 0;
     datas->ini_y = 0;
     datas->zoom = 120;
-    datas->step_zoom = 1;
+    datas->step_zoom = 0;
+    datas->step_x = 0;
+    datas->step_y = 0;
 
     datas->center_x = 0;
     datas->center_y = 0;

@@ -6,7 +6,7 @@
 /*   By: fcoindre <fcoindre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:41:32 by fcoindre          #+#    #+#             */
-/*   Updated: 2023/02/22 15:44:29 by fcoindre         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:38:02 by fcoindre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int mandelbrot(t_im_num c, int max_iterations)
 
     if (((c.re + 1) * (c.re + 1) + c.im * c.im) < 0.0625)        
         return (-2);
-    
+
+
     while (nb_iter < max_iterations)
     {
         
@@ -47,7 +48,8 @@ int mandelbrot(t_im_num c, int max_iterations)
         z_cur.re = z_ini.re * z_ini.re - z_ini.im * z_ini.im + c.re;
         z_cur.im = 2 * z_ini.re * z_ini.im + c.im;
         
-        
+
+
         if (z_cur.re * z_cur.re + z_cur.im * z_cur.im > 4)
         {
             break;

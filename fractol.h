@@ -45,6 +45,9 @@ typedef struct s_datas
     int     ini_color;
     double     ini_x;
     double     ini_y;
+    int     step_x;
+    int     step_y;
+
     double  zoom;
     int step_zoom;
     double  center_x;
