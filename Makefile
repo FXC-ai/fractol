@@ -15,6 +15,7 @@ CFLAGS	= -Wall -Wextra -Werror
 
 ${NAME}:	${OBJS}
 			make -C libft
+			cp ./mlx/libmlx.dylib .
 			$(CC) $^ -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework Appkit -o $(NAME)
 
 all:		${NAME}
