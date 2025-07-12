@@ -174,34 +174,16 @@ int main()
 
 [GitHub - terry-yes/mlx_example: Some examples for those who try to use MLX library for 42 subject CUB3D or miniRT. And some helpful links.](https://github.com/terry-yes/mlx_example)
 
-Exemples pour apprendre à utiliser la minilibx
+Exemples pour apprendre à utiliser la minilibx : [42-Fractol/man_mlx_new_image.md at master · nmei-42/42-Fractol](https://github.com/nmei-42/42-Fractol/blob/master/minilibx/man_mlx_new_image.md), [Getting started](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
 
-[42-Fractol/man_mlx_new_image.md at master · nmei-42/42-Fractol](https://github.com/nmei-42/42-Fractol/blob/master/minilibx/man_mlx_new_image.md)
+Documentation sur la minilibx : [The Julia and Mandelbrot Set](https://lodev.org/cgtutor/juliamandelbrot.html)
 
-[Getting started](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
+Cheat codes pour le projet ? : [ft_libgfx AKA b_gfx overload](https://qst0.github.io/ft_libgfx/#getting-started-with-fractol-ft_fractal)
 
-Documentation sur la minilibx
+Commencer avec le projet fractol : [Pixel drawing with the miniblix](https://aurelienbrabant.fr/blog/pixel-drawing-with-the-minilibx)
 
-[The Julia and Mandelbrot Set](https://lodev.org/cgtutor/juliamandelbrot.html)
+Tutoriel MinilibX : [RGB Color Codes Chart](https://www.rapidtables.com/web/color/RGB_Color.html)
 
-Cheat codes pour le projet ?
+Pour les couleurs : [Auto-Math](https://www.auto-math.be/public/8/module/18/theorie/74)
 
-[ft_libgfx AKA b_gfx overload](https://qst0.github.io/ft_libgfx/#getting-started-with-fractol-ft_fractal)
-
-Commencer avec le projet fractol
-
-[Pixel drawing with the miniblix](https://aurelienbrabant.fr/blog/pixel-drawing-with-the-minilibx)
-
-Tutoriel MinilibX
-
-[RGB Color Codes Chart](https://www.rapidtables.com/web/color/RGB_Color.html)
-
-Pour les couleurs
-
-[Auto-Math](https://www.auto-math.be/public/8/module/18/theorie/74)
-
-Pour les mathématiques du plan complexe
-
-[A propos des fractales](https://www.youtube.com/watch?v=Y4ICbYtBGzA)
-
-A propos des fractales
+Pour les mathématiques du plan complexe : [A propos des fractales](https://www.youtube.com/watch?v=Y4ICbYtBGzA)
