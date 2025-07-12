@@ -1,16 +1,24 @@
 # fract’ol
 
 ## Captures d'écran
-![Capture1](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/1.png)
-![Capture2](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/2.png)
-![Capture3](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/3.png)
-![Capture4](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/4.png)
-![Capture5](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/5.png)
-![Capture6](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/6.png)
-![Capture7](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/7.png)
-![Capture8](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/8.png)
-![Capture9](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/9.png)
-![Capture10](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/10.png)
+<table>
+  <tr>
+    <td><a href="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/1.png"><img src="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/1.png" width="200"/></a></td>
+    <td><a href="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/2.png"><img src="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/2.png" width="200"/></a></td>
+    <td><a href="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/3.png"><img src="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/3.png" width="200"/></a></td>
+  </tr>
+  <tr>
+    <td><a href="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/4.png"><img src="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/4.png" width="200"/></a></td>
+    <td><a href="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/10.png"><img src="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/10.png" width="200"/></a></td>
+    <td><a href="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/6.png"><img src="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/6.png" width="200"/></a></td>
+  </tr>
+  <tr>
+    <td><a href="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/7.png"><img src="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/7.png" width="200"/></a></td>
+    <td><a href="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/8.png"><img src="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/8.png" width="200"/></a></td>
+    <td><a href="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/9.png"><img src="https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/9.png" width="200"/></a></td>
+  </tr>
+</table>
+
 
 
 ## Fonctionnement le la MinilibX
