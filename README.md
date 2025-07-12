@@ -1,16 +1,17 @@
 # fract’ol
 
 ## Captures d'écran
-[Capture1](https://github.com/FXC-ai/fractol/blob/master/pictures/1.png)
-[Capture2](https://github.com/FXC-ai/fractol/blob/master/pictures/2.png)
-[Capture3](https://github.com/FXC-ai/fractol/blob/master/pictures/3.png)
-[Capture4](https://github.com/FXC-ai/fractol/blob/master/pictures/4.png)
-[Capture5](https://github.com/FXC-ai/fractol/blob/master/pictures/5.png)
-[Capture6](https://github.com/FXC-ai/fractol/blob/master/pictures/6.png)
-[Capture7](https://github.com/FXC-ai/fractol/blob/master/pictures/7.png)
-[Capture8](https://github.com/FXC-ai/fractol/blob/master/pictures/8.png)
-[Capture9](https://github.com/FXC-ai/fractol/blob/master/pictures/9.png)
-[Capture10](https://github.com/FXC-ai/fractol/blob/master/pictures/10.png)
+![Capture1](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/1.png)
+![Capture2](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/2.png)
+![Capture3](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/3.png)
+![Capture4](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/4.png)
+![Capture5](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/5.png)
+![Capture6](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/6.png)
+![Capture7](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/7.png)
+![Capture8](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/8.png)
+![Capture9](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/9.png)
+![Capture10](https://raw.githubusercontent.com/FXC-ai/fractol/master/pictures/10.png)
+
 
 ## Fonctionnement le la MinilibX
 
