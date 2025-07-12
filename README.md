@@ -1,6 +1,18 @@
 # fract’ol
 
-# Fonctionnement le la MinilibX
+## Captures d'écran
+[Capture1](https://github.com/FXC-ai/fractol/blob/master/pictures/1.png)
+[Capture2](https://github.com/FXC-ai/fractol/blob/master/pictures/2.png)
+[Capture3](https://github.com/FXC-ai/fractol/blob/master/pictures/3.png)
+[Capture4](https://github.com/FXC-ai/fractol/blob/master/pictures/4.png)
+[Capture5](https://github.com/FXC-ai/fractol/blob/master/pictures/5.png)
+[Capture6](https://github.com/FXC-ai/fractol/blob/master/pictures/6.png)
+[Capture7](https://github.com/FXC-ai/fractol/blob/master/pictures/7.png)
+[Capture8](https://github.com/FXC-ai/fractol/blob/master/pictures/8.png)
+[Capture9](https://github.com/FXC-ai/fractol/blob/master/pictures/9.png)
+[Capture10](https://github.com/FXC-ai/fractol/blob/master/pictures/10.png)
+
+## Fonctionnement le la MinilibX
 
 Les variables sont stockees dans la stack et on les modifie par référence 
 
@@ -168,7 +180,7 @@ int main()
 }
 ```
 
-# Sources
+## Sources
 
 [GitHub - pvaladares/42cursus-02-fract-ol: Discover 2D programming and the psychedelic universe of fractals in this project, using minilibX.](https://github.com/pvaladares/42cursus-02-fract-ol)
 
